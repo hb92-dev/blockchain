@@ -11,7 +11,7 @@ Now, we have to run the application (use different terminal session) </br>
 `python run_app.py`
 
 The application should be up and running at *localhost:5000*
-```
+
 To play around by spinning off multiple custom nodes, use the `register_with/` endpoint to register a new node. 
 ```
 Here's a sample scenario that you might wanna try,
