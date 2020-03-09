@@ -2,7 +2,7 @@
 
 To get this working, first we should start a blockchain server, by running the following commands:
 
-`export FLASK_APP=node_seerver.py`</br>
+`export FLASK_APP=node_server.py`</br>
 `flask run --port 8000`
 
 One instance of our blockchain node is now up and running at port 8000
