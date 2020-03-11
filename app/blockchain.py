@@ -62,14 +62,16 @@ class Blockchain:
     def add_new_transaction(self, transaction):
         self.unconfirmed_transactions.append(transaction)
 
+
     @classmethod
     def is_valid_proof(cls, block, block_hash):
         """
         Check if block_hash is valid hash of block and satisfies
         the difficulty criteria.
         """
-        return (block_hash.startswith('0' * Blockchain.difficulty) and
+        status = (block_hash.startswith('0' * Blockchain.difficulty) and
                 block_hash == block.compute_hash())
+        return status
 
     @classmethod
     def check_chain_validity(cls, chain):
