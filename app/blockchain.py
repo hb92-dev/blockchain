@@ -22,7 +22,9 @@ class Blockchain:
 
     @property
     def last_block(self):
-        return self.chain[-1]
+        #gets the last block of chain
+        last_block = self.chain[-1]
+        return last_block
 
     def add_block(self, block, proof):
         """
