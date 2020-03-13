@@ -33,7 +33,7 @@ def fetch_posts():
         posts = sorted(content, key=lambda k: k['timestamp'],
                        reverse=True)
 
-
+#fetch part of nodes
 @app.route('/')
 def index():
     fetch_posts()
