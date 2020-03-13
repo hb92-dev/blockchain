@@ -26,14 +26,14 @@ def new_transaction():
 
     for field in required_fields:
         if not tx_data.get(field):
+            # POST error field value missing
             return "Invalid transaction data", 404
 
     tx_data["timestamp"] = time.time()
 
     blockchain.add_new_transaction(tx_data)
-
+    #201 means that the operation did not result in an error
     return "Success", 201
-
 
 # endpoint to return the node's copy of the chain.
 # Our application will be using this endpoint to query
@@ -83,11 +83,13 @@ def register_new_peers():
 
 @app.route('/register_with', methods=['POST'])
 def register_with_existing_node():
+    
     """
     Internally calls the `register_node` endpoint to
     register current node with the node specified in the
     request, and sync the blockchain as well as peer data.
     """
+    
     node_address = request.get_json()["node_address"]
     if not node_address:
         return "Invalid data", 400
