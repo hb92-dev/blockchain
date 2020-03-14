@@ -176,6 +176,7 @@ def consensus():
         length = response.json()['length']
         chain = response.json()['chain']
         if length > current_len and blockchain.check_chain_validity(chain):
+            # Longer valid chain found!
             current_len = length
             longest_chain = chain
 
