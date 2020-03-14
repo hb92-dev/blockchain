@@ -16,7 +16,7 @@ blockchain.create_genesis_block()
 # the address to other participating members of the network
 peers = set()
 
-
+#Flask's way of declaring end-points
 # endpoint to submit a new transaction. This will be used by
 # our application to add new data (posts) to the blockchain
 @app.route('/new_transaction', methods=['POST'])
@@ -69,6 +69,7 @@ def mine_unconfirmed_transactions():
 # endpoint to add new peers to the network.
 @app.route('/register_node', methods=['POST'])
 def register_new_peers():
+    # The host address to the peer node 
     node_address = request.get_json()["node_address"]
     if not node_address:
         return "Invalid data", 400
