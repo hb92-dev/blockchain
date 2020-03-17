@@ -18,7 +18,7 @@ class Blockchain(Block):
         a valid hash.
         """
         genesis_block = Block(0,[],0,'0')
-        genesis_block.hash = self.compute_hash()
+        genesis_block.hash = self._compute_hash()
         self.chain.append(genesis_block)
 
     @property
@@ -55,10 +55,10 @@ class Blockchain(Block):
         """
         block.nonce = 0
 
-        computed_hash = block.compute_hash()
+        computed_hash = block._compute_hash()
         while not computed_hash.startswith('0' * Blockchain.difficulty):
             block.nonce += 1
-            computed_hash = block.compute_hash()
+            computed_hash = block._compute_hash()
 
         return computed_hash
 
@@ -73,7 +73,7 @@ class Blockchain(Block):
         the difficulty criteria.
         """
         status = (block_hash.startswith('0' * Blockchain.difficulty) and
-                block_hash == block.compute_hash())
+                block_hash == block._compute_hash())
         return status
 
     @classmethod
