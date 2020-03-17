@@ -130,7 +130,7 @@ def create_chain_from_dump(chain_dump):
         added = generated_blockchain.add_block(block, proof)
         if not added:
             raise Exception("The chain dump is tampered!!")
-        else:  # the block is a genesis block, no verification needed
+
     return generated_blockchain
 
 
