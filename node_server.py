@@ -3,7 +3,8 @@ import time
 from flask import Flask, request
 from app.block import Block
 from app.blockchain import Blockchain
-from app.exception import BlockchainException
+from app.exception import ( ValueError, TypeError, EmptyError, 
+                            CannotValidation)
 
 
 import requests
@@ -28,7 +29,7 @@ def new_transaction():
     for field in required_fields:
         if not tx_data.get(field):
             # POST error field value missing
-            raise Exception("Invalid transaction data", 404)
+            raise ValueError("Invalid transaction data", 404)
 
     tx_data["timestamp"] = time.time()
 
@@ -56,7 +57,7 @@ def get_chain():
 def mine_unconfirmed_transactions():
     result = blockchain.mine()
     if not result:
-        raise Exception("No transactions to mine")
+        raise EmptyError("No transactions to mine")
     else:
         # Making sure we have the longest chain before announcing to the network
         chain_length = len(blockchain.chain)
@@ -73,7 +74,7 @@ def register_new_peers():
     # The host address to the peer node 
     node_address = request.get_json()["node_address"]
     if not node_address:
-        raise Exception("Invalid data", 400)
+        raise TypeError("Invalid data", 400)
 
     # Add the node to the peer list
     peers.add(node_address)
@@ -94,7 +95,7 @@ def register_with_existing_node():
     
     node_address = request.get_json()["node_address"]
     if not node_address:
-        return "Invalid data", 400
+         raise EmptyError "Invalid data", 400
 
     data = {"node_address": request.host_url}
     headers = {'Content-Type': "application/json"}
