@@ -72,3 +72,9 @@ def submit_textarea():
 
 def timestamp_to_string(epoch_time):
     return datetime.datetime.fromtimestamp(epoch_time).strftime('%H:%M')
+
+@app.route('/login', methods=['GET'])
+def loginForm ():
+    return render_template('login.html',
+                           title='Login:',
+                           node_address=CONNECTED_NODE_ADDRESS)
