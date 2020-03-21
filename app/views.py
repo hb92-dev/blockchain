@@ -1,16 +1,21 @@
 import datetime
 import json
 
+
 import requests
 from flask import render_template, redirect, request
-
+import pymysql
 from app import app
+from app.user import User
+
 
 # The node with which our application interacts, there can be multiple
 # such nodes as well.
 CONNECTED_NODE_ADDRESS = "http://127.0.0.1:8000"
 
 posts = []
+db=pymysql.connect('localhost', 'root', '', 'blockchain_db')
+
 
 
 def fetch_posts():
@@ -20,7 +25,7 @@ def fetch_posts():
     """
     get_chain_address = "{}/chain".format(CONNECTED_NODE_ADDRESS)
     response = requests.get(get_chain_address)
-    
+
     if response.status_code == 200:
         content = []
         chain = json.loads(response.content)
@@ -34,7 +39,8 @@ def fetch_posts():
         posts = sorted(content, key=lambda k: k['timestamp'],
                        reverse=True)
 
-#fetch part of nodes
+
+# fetch part of nodes
 @app.route('/')
 def index():
     fetch_posts()
@@ -51,7 +57,7 @@ def submit_textarea():
     """
     Endpoint to create a new transaction via our application.
     """
-    #get value from request
+    # get value from request
     post_content = request.form["content"]
     author = request.form["author"]
 
@@ -73,15 +79,29 @@ def submit_textarea():
 def timestamp_to_string(epoch_time):
     return datetime.datetime.fromtimestamp(epoch_time).strftime('%H:%M')
 
+
 @app.route('/login', methods=['GET'])
-def loginForm ():
+def loginForm():
     return render_template('login.html',
                            title='Login:',
                            node_address=CONNECTED_NODE_ADDRESS)
 
+
 @app.route('/register', methods=['GET'])
-def registerForm ():
+def registerForm():
     return render_template('registerForm.html',
                            title='Register:',
                            node_address=CONNECTED_NODE_ADDRESS)
 
+
+@app.route('/register', methods=['POST'])
+def registerSubmit():
+    user = User()
+    firstname = request.form["first_name"]
+    lastname = request.form["last_name"]
+    email = request.form["email"]
+    password = request.form["password"]
+    cursor = db.cursor()
+    cursor.execute("INSERT INTO users(first_name, last_name, email, password) VALUES (%s, %s, %s, %s)", (firstname, lastname, email, user.generatePasswordHash(password)))
+    db.commit()
+    return redirect("/login")
