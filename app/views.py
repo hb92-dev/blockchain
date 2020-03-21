@@ -78,3 +78,10 @@ def loginForm ():
     return render_template('login.html',
                            title='Login:',
                            node_address=CONNECTED_NODE_ADDRESS)
+
+@app.route('/register', methods=['GET'])
+def registerForm ():
+    return render_template('registerForm.html',
+                           title='Register:',
+                           node_address=CONNECTED_NODE_ADDRESS)
+
