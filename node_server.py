@@ -95,7 +95,7 @@ def register_with_existing_node():
     
     node_address = request.get_json()["node_address"]
     if not node_address:
-         raise EmptyError "Invalid data", 400
+         raise EmptyError ("Invalid data", 400)
 
     data = {"node_address": request.host_url}
     headers = {'Content-Type': "application/json"}
