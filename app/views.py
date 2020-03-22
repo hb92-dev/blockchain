@@ -123,8 +123,8 @@ def loginSubmit():
             return redirect("/")
 
         else:
-            return "Incorrect password"
+            raise Exception "Incorrect password"
 
     else:
-        return "Incorrect email or password", 400
+        raise Exception ("Incorrect email or password", 400)
 
