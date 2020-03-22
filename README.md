@@ -1,4 +1,6 @@
-## Instructions
+# Instructions
+## Prerequisites
+First we have to import database using `blockchain_db.sql` <br>
 
 To get this working, first we should start a blockchain server, by running the following commands:
 
