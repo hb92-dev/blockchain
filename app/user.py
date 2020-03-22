@@ -10,7 +10,7 @@ bcrypt = Bcrypt(app)
 
 class User(Block):
 
-    def _init(self):
+    def __init__(self):
         Block.__init__(self, 0, [], 0, '0')
 
     def generatePasswordHash(self, password):
