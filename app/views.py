@@ -102,7 +102,9 @@ def registerSubmit():
     email = request.form["email"]
     password = request.form["password"]
     cursor = db.cursor()
-    cursor.execute("INSERT INTO users(first_name, last_name, email, password) VALUES (%s, %s, %s, %s)", (firstname, lastname, email, user.generatePasswordHash(password)))
+    #generate password hash
+    password = user.generatePasswordHash(password)
+    cursor.execute("INSERT INTO users(first_name, last_name, email, password) VALUES (%s, %s, %s, %s)", (firstname, lastname, email, password))
     db.commit()
     return redirect("/login")
 
