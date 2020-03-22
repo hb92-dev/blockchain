@@ -105,3 +105,24 @@ def registerSubmit():
     cursor.execute("INSERT INTO users(first_name, last_name, email, password) VALUES (%s, %s, %s, %s)", (firstname, lastname, email, user.generatePasswordHash(password)))
     db.commit()
     return redirect("/login")
+
+@app.route('/login', methods=['POST'])
+def loginSubmit():
+    user = User()
+    email = request.form["email"]
+    password = request.form["password"]
+    cursor = db.cursor()
+    cursor.execute('SELECT * FROM users WHERE email = %s', (email))
+    result = cursor.fetchone()
+    if result:
+        password_hash = result[4]
+        check_hash = user.checkPasswordHash(password_hash, password)
+        if check_hash:
+            return redirect("/")
+
+        else:
+            return "Incorrect password"
+
+    else:
+        return "Incorrect email or password", 400
+
