@@ -14,5 +14,5 @@ Now, we have to run the application (use different terminal session) </br>
 
 The application should be up and running at * http://127.0.0.1:5000/ *
 
-Once you do all this, you can run the application, create transactions (post messages via the web inteface), and once you mine the transactions, all the nodes in the network will update the chain.
+Once you do all this, you can run the application, create an account if you don't have otherwise just login and create transactions (post messages via the web inteface), and once you mine the transactions, all the nodes in the network will update the chain.
 
